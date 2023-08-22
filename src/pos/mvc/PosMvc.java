@@ -4,6 +4,8 @@
  */
 package pos.mvc;
 
+import pos.mvc.view.customerView;
+
 /**
  *
  * @author tdamm
@@ -14,7 +16,7 @@ public class PosMvc {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new customerView().setVisible(true);
     }
     
 }
