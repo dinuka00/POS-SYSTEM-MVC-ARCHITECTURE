@@ -8,7 +8,7 @@ package pos.mvc.model;
  *
  * @author tdamm
  */
-public class customerModel {
+public class CustomerModel {
     
     private String custId;
     private String custTitle;
@@ -20,10 +20,10 @@ public class customerModel {
     private String province;
     private String zip;
 
-    public customerModel() {
+    public CustomerModel() {
     }
 
-    public customerModel(String custId, String custTitle, String custName, String dob, Double salary, String custAddress, String city, String province, String zip) {
+    public CustomerModel(String custId, String custTitle, String custName, String dob, Double salary, String custAddress, String city, String province, String zip) {
         this.custId = custId;
         this.custTitle = custTitle;
         this.custName = custName;
