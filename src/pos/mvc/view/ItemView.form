@@ -242,7 +242,6 @@
                   <Font name="Arial Black" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save Item"/>
-                <Property name="actionCommand" type="java.lang.String" value="Save Item"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addButtonActionPerformed"/>
@@ -254,7 +253,6 @@
                   <Font name="Arial Black" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Update Item"/>
-                <Property name="actionCommand" type="java.lang.String" value="Update Item"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
