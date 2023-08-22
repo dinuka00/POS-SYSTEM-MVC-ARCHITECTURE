@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableModel;
 import pos.mvc.controller.CustomerController;
 import pos.mvc.model.CustomerModel;
@@ -271,6 +268,11 @@ public class CustomerView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        customerTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(customerTable);
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
@@ -345,12 +347,16 @@ public class CustomerView extends javax.swing.JFrame {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
-        // TODO add your handling code here:
+        updateCustomer();
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void updateButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateButton1ActionPerformed
+
+    private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
+        searchCustomer();
+    }//GEN-LAST:event_customerTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -402,7 +408,7 @@ public class CustomerView extends javax.swing.JFrame {
                 custProvinceText.getText(),
                 custZipText.getText());
         
-        System.out.println(customer.toString());
+        
         
         try {
             String resp = customerController.saveCustomer(customer);
@@ -448,7 +454,7 @@ public class CustomerView extends javax.swing.JFrame {
             ArrayList<CustomerModel> customers = customerController.getAllCustomers();
             
             for(CustomerModel customer : customers){
-                Object[] rowData = {customer.getCustId(), customer.getCustTitle()+" "+ customer.getCustName(),customer.getCustAddress(), customer.getCity(), customer.getSalary(), customer.getZip()};
+                Object[] rowData = {customer.getCustId(), customer.getCustTitle()+" "+ customer.getCustName(),customer.getCustAddress()+", "+ customer.getCity(), customer.getSalary(), customer.getZip()};
                 dtm.addRow(rowData);
             }
         } catch (SQLException | ClassNotFoundException ex) {
@@ -459,5 +465,61 @@ public class CustomerView extends javax.swing.JFrame {
         
     }
     
+    private void searchCustomer(){
+        try {
+            String custId = customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString();
+            
+            CustomerModel customerModel =  customerController.getCustomerModel(custId);
+            
+            if(customerModel != null){
+                custIdText.setText(customerModel.getCustId());
+                custTitleText.setText(customerModel.getCustTitle());
+                custNameText.setText(customerModel.getCustName());
+                custDobText.setText(customerModel.getDob());
+                custSalaryText.setText(Double.toString(customerModel.getSalary()));
+                custAddressText.setText(customerModel.getCustAddress());
+                custCityText.setText(customerModel.getCity());
+                custProvinceText.setText(customerModel.getProvince());
+                custZipText.setText(customerModel.getZip());
+            }else{
+                JOptionPane.showMessageDialog(this, "Customer Not Found");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+        
+    }
     
+    public void updateCustomer(){
+        
+        try {
+            CustomerModel customer = new CustomerModel(
+                    custIdText.getText(),
+                    custTitleText.getText(),
+                    custNameText.getText(),
+                    custDobText.getText(),
+                    Double.parseDouble(custSalaryText.getText()),
+                    custAddressText.getText(),
+                    custCityText.getText(),
+                    custProvinceText.getText(),
+                    custZipText.getText());
+            
+            String resp = customerController.updateCustomer(customer);
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllCustomers();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
