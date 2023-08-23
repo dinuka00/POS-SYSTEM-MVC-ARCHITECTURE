@@ -116,7 +116,6 @@ public class ItemView extends javax.swing.JFrame {
 
         addButton.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         addButton.setText("Save Item");
-        addButton.setActionCommand("Save Item");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -125,7 +124,6 @@ public class ItemView extends javax.swing.JFrame {
 
         updateButton.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         updateButton.setText("Update Item");
-        updateButton.setActionCommand("Update Item");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
