@@ -73,6 +73,7 @@ public class OrderView extends javax.swing.JFrame {
         discountLabel = new javax.swing.JLabel();
         discountText = new javax.swing.JTextField();
         addItemButton = new javax.swing.JButton();
+        addItemButton1 = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
@@ -145,6 +146,14 @@ public class OrderView extends javax.swing.JFrame {
             }
         });
 
+        addItemButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        addItemButton1.setText("Main Menu");
+        addItemButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addItemButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout customerPanelLayout = new javax.swing.GroupLayout(customerPanel);
         customerPanel.setLayout(customerPanelLayout);
         customerPanelLayout.setHorizontalGroup(
@@ -183,7 +192,9 @@ public class OrderView extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(discountText, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(addItemButton)))
+                                .addComponent(addItemButton)
+                                .addGap(162, 162, 162)
+                                .addComponent(addItemButton1)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(customerPanelLayout.createSequentialGroup()
@@ -206,11 +217,12 @@ public class OrderView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itemIdLabel)
-                    .addComponent(itemIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchItemButton)
-                    .addComponent(itemDataLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(itemDataLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(itemIdLabel)
+                        .addComponent(itemIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchItemButton)))
                 .addGap(18, 18, 18)
                 .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(qtyLabel)
@@ -219,7 +231,8 @@ public class OrderView extends javax.swing.JFrame {
                 .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(discountLabel)
                     .addComponent(discountText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addItemButton))
+                    .addComponent(addItemButton)
+                    .addComponent(addItemButton1))
                 .addGap(29, 29, 29))
         );
 
@@ -334,6 +347,11 @@ public class OrderView extends javax.swing.JFrame {
         placeOrder();
     }//GEN-LAST:event_placeOrderButtonActionPerformed
 
+    private void addItemButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemButton1ActionPerformed
+        new MenuView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addItemButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -341,6 +359,7 @@ public class OrderView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemButton;
+    private javax.swing.JButton addItemButton1;
     private javax.swing.JPanel basePanel;
     private javax.swing.JLabel custDataLabel;
     private javax.swing.JLabel customerIdLabel;

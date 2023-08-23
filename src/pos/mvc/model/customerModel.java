@@ -9,7 +9,7 @@ package pos.mvc.model;
  * @author tdamm
  */
 public class CustomerModel {
-    
+
     private String custId;
     private String custTitle;
     private String custName;
@@ -35,8 +35,6 @@ public class CustomerModel {
         this.zip = zip;
     }
 
-    
-    
     /**
      * @return the custId
      */
@@ -167,8 +165,5 @@ public class CustomerModel {
     public String toString() {
         return "customerModel{" + "custId=" + custId + ", custTitle=" + custTitle + ", custName=" + custName + ", dob=" + dob + ", salary=" + salary + ", custAddress=" + custAddress + ", city=" + city + ", province=" + province + ", zip=" + zip + '}';
     }
-    
-    
-    
-    
+
 }

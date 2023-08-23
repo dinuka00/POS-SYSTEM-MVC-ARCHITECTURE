@@ -58,6 +58,7 @@ public class ItemView extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         updateButton1 = new javax.swing.JButton();
+        updateButton2 = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
@@ -138,12 +139,22 @@ public class ItemView extends javax.swing.JFrame {
             }
         });
 
+        updateButton2.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        updateButton2.setText("Delete Item");
+        updateButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout customerPanelLayout = new javax.swing.GroupLayout(customerPanel);
         customerPanel.setLayout(customerPanelLayout);
         customerPanelLayout.setHorizontalGroup(
             customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customerPanelLayout.createSequentialGroup()
-                .addContainerGap(355, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updateButton2)
+                .addGap(114, 114, 114)
                 .addComponent(updateButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(updateButton)
@@ -202,7 +213,8 @@ public class ItemView extends javax.swing.JFrame {
                 .addGroup(customerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(updateButton)
-                    .addComponent(updateButton1))
+                    .addComponent(updateButton1)
+                    .addComponent(updateButton2))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -303,6 +315,11 @@ public class ItemView extends javax.swing.JFrame {
         searchItem();
     }//GEN-LAST:event_itemTableMouseClicked
 
+    private void updateButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButton2ActionPerformed
+        new MenuView().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_updateButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -328,29 +345,30 @@ public class ItemView extends javax.swing.JFrame {
     private javax.swing.JTextField unitPriceText;
     private javax.swing.JButton updateButton;
     private javax.swing.JButton updateButton1;
+    private javax.swing.JButton updateButton2;
     // End of variables declaration//GEN-END:variables
 
     public void loadAllItems() {
 
         try {
             String[] columns = {"Code", "Description", "Pack Size", "Unit Price", "Quantity"};
-            
+
             DefaultTableModel dtm = new DefaultTableModel(columns, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
                     return false;
                 }
-                
+
             };
-            
+
             itemTable.setModel(dtm);
-            
+
             ArrayList<ItemModel> items = itemController.getAllItems();
-            
+
             for (ItemModel item : items) {
                 Object[] rowData = {item.getItemCode(), item.getDescription(), item.getPackSize(), item.getUnitPrice(), item.getQoh()};
                 dtm.addRow(rowData);
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,17 +377,17 @@ public class ItemView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-    
-    private void saveItem(){
-        
+
+    private void saveItem() {
+
         try {
             ItemModel itemModel = new ItemModel(itemCodeText.getText(),
                     descriptionText.getText(),
                     packSizeText.getText(),
                     Double.parseDouble(unitPriceText.getText()),
                     Integer.parseInt(qohText.getText()));
-            
-             String resp =  itemController.saveItem(itemModel);
+
+            String resp = itemController.saveItem(itemModel);
             JOptionPane.showMessageDialog(this, resp);
             clear();
             loadAllItems();
@@ -378,33 +396,32 @@ public class ItemView extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
     }
-    
-    private void clear(){
+
+    private void clear() {
         itemCodeText.setText("");
         descriptionText.setText("");
         packSizeText.setText("");
         unitPriceText.setText("");
         qohText.setText("");
-        
+
     }
-    
-    private void searchItem(){
-        
+
+    private void searchItem() {
+
         try {
             String itemCode = itemTable.getValueAt(itemTable.getSelectedRow(), 0).toString();
-            
+
             ItemModel itemModel = itemController.searchItem(itemCode);
-            
-            if(itemModel != null){
+
+            if (itemModel != null) {
                 itemCodeText.setText(itemModel.getItemCode());
                 descriptionText.setText(itemModel.getDescription());
                 packSizeText.setText(itemModel.getPackSize());
                 unitPriceText.setText(Double.toString(itemModel.getUnitPrice()));
                 qohText.setText(Integer.toString(itemModel.getQoh()));
-            }else{ 
+            } else {
                 JOptionPane.showMessageDialog(this, "Item Not Found");
             }
         } catch (SQLException ex) {
@@ -414,16 +431,16 @@ public class ItemView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
-    
-    private void updateItem(){
+
+    private void updateItem() {
         try {
             ItemModel itemModel = new ItemModel(itemCodeText.getText(),
                     descriptionText.getText(),
                     packSizeText.getText(),
                     Double.parseDouble(unitPriceText.getText()),
                     Integer.parseInt(qohText.getText()));
-            
-            String resp =  itemController.updateItem(itemModel);
+
+            String resp = itemController.updateItem(itemModel);
             JOptionPane.showMessageDialog(this, resp);
             clear();
             loadAllItems();
@@ -433,14 +450,14 @@ public class ItemView extends javax.swing.JFrame {
             Logger.getLogger(ItemView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
-             
+
     }
-    
-    private void deleteItem(){
-        
+
+    private void deleteItem() {
+
         try {
             String itemCode = itemCodeText.getText();
-            String resp =  itemController.deleteItem(itemCode);
+            String resp = itemController.deleteItem(itemCode);
             JOptionPane.showMessageDialog(this, resp);
             clear();
             loadAllItems();
